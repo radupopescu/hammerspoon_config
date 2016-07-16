@@ -88,6 +88,8 @@ end
 
 -- Maximize
 hs.hotkey.bind(keys.prefix, keys.maximize, makeSetFrameCallback(layouts.full))
+-- Also maximize, since I'm used to this from Caffeine
+hs.hotkey.bind(keys.prefix, "F", makeSetFrameCallback(layouts.full))
 
 -- Send to left, full height
 hs.hotkey.bind(keys.prefix, keys.left, makeSetFrameCallback2({layouts.left50,
