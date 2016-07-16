@@ -13,6 +13,26 @@ local keys = {
 
 -- No need to edit below this line
 
+local layouts = {
+    full = hs.layout.maximized,
+    left30 = hs.layout.left30,
+    left50 = hs.layout.left50,
+    left70 = hs.layout.left70,
+    right30 = hs.layout.right30,
+    right50 = hs.layout.right50,
+    right70 = hs.layout.right70,
+    top30 = {x = 0, y = 0, w = 1, h = 0.5},
+    top50 = {x = 0, y = 0, w = 1, h = 0.33333},
+    top70 = {x = 0, y = 0, w = 1, h = 0.66666},
+    bottom30 = {x = 0, y = 0.5, w = 1, h = 0.5},
+    bottom50 = {x = 0, y = 0.66666, w = 1, h = 0.33333},
+    bottom70 = {x = 0, y = 0.33333, w = 1, h = 0.66666},
+    tl = {x = 0, y = 0, w = 0.5, h = 0.5},
+    tr = {x = 0.5, y = 0, w = 0.5, h = 0.5},
+    bl = {x = 0, y = 0.5, w = 0.5, h = 0.5},
+    br = {x = 0.5, y = 0.5, w = 0.5, h = 0.5}
+}
+
 local eps = 10
 
 local function makeSetFrameCallback(coeff)
@@ -57,8 +77,8 @@ local function makeSetFrameCallback2(coeff)
          new_coeff = coeff[1]
       end
 
-      f.x = max.x + math.abs(new_coeff.x * max.w)
-      f.y = max.y + math.abs(new_coeff.y * max.h)
+      f.x = max.x + new_coeff.x * max.w
+      f.y = max.y + new_coeff.y * max.h
       f.w = new_coeff.w * max.w
       f.h = new_coeff.h * max.h
 
@@ -67,41 +87,37 @@ local function makeSetFrameCallback2(coeff)
 end
 
 -- Maximize
-hs.hotkey.bind(keys.prefix, keys.maximize, makeSetFrameCallback(hs.layout.maximized))
+hs.hotkey.bind(keys.prefix, keys.maximize, makeSetFrameCallback(layouts.full))
 
 -- Send to left, full height
-hs.hotkey.bind(keys.prefix, keys.left, makeSetFrameCallback2({
-                     {x = 0, y = 0, w = 0.5, h = 1},
-                     {x = 0, y = 0, w = 0.33333, h = 1},
-                     {x = 0, y = 0, w = 0.66666, h = 1}}))
+hs.hotkey.bind(keys.prefix, keys.left, makeSetFrameCallback2({layouts.left50,
+                                                              layouts.left30,
+                                                              layouts.left70}))
 
 -- Send to right, full height
-hs.hotkey.bind(keys.prefix, keys.right, makeSetFrameCallback2({
-                     {x = 0.5, y = 0, w = 0.5, h = 1},
-                     {x = 0.66666, y = 0, w = 0.33333, h = 1},
-                     {x = 0.33333, y = 0, w = 0.66666, h = 1}}))
+hs.hotkey.bind(keys.prefix, keys.right, makeSetFrameCallback2({layouts.right50,
+                                                               layouts.right30,
+                                                               layouts.right70}))
 
--- Send to top half
-hs.hotkey.bind(keys.prefix, keys.top, makeSetFrameCallback2({
-                     {x = 0, y = 0, w = 1, h = 0.5},
-                     {x = 0, y = 0, w = 1, h = 0.33333},
-                     {x = 0, y = 0, w = 1, h = 0.66666}}))
+-- Send to top
+hs.hotkey.bind(keys.prefix, keys.top, makeSetFrameCallback2({layouts.top50,
+                                                             layouts.top30,
+                                                             layouts.top70}))
 
--- Send to bottom half
-hs.hotkey.bind(keys.prefix, keys.bottom, makeSetFrameCallback2({
-                     {x = 0, y = 0.5, w = 1, h = 0.5},
-                     {x = 0, y = 0.66666, w = 1, h = 0.33333},
-                     {x = 0, y = 0.33333, w = 1, h = 0.66666}}))
+-- Send to bottom
+hs.hotkey.bind(keys.prefix, keys.bottom, makeSetFrameCallback2({layouts.bottom50,
+                                                                layouts.bottom30,
+                                                                layouts.bottom70}))
 
 -- Send to upper left
-hs.hotkey.bind(keys.prefix, keys.top_left, makeSetFrameCallback({x = 0, y = 0, w = 0.5, h = 0.5}))
+hs.hotkey.bind(keys.prefix, keys.top_left, makeSetFrameCallback(layouts.tl))
 
 -- Send to upper right
-hs.hotkey.bind(keys.prefix, keys.top_right, makeSetFrameCallback({x = 0.5, y = 0, w = 0.5, h = 0.5}))
+hs.hotkey.bind(keys.prefix, keys.top_right, makeSetFrameCallback(layouts.tr))
 
 -- Send to lower left
-hs.hotkey.bind(keys.prefix, keys.bottom_left, makeSetFrameCallback({x = 0, y = 0.5, w = 0.5, h = 0.5}))
+hs.hotkey.bind(keys.prefix, keys.bottom_left, makeSetFrameCallback(layouts.bl))
 
 -- Send to lower right
-hs.hotkey.bind(keys.prefix, keys.bottom_right, makeSetFrameCallback({x = 0.5, y = 0.5, w = 0.5, h = 0.5}))
+hs.hotkey.bind(keys.prefix, keys.bottom_right, makeSetFrameCallback(layouts.br))
 
