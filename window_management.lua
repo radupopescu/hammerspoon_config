@@ -67,7 +67,7 @@ local function makeSetFrameCallback2(coeff)
 end
 
 -- Maximize
-hs.hotkey.bind(keys.prefix, keys.maximize, makeSetFrameCallback({x = 0, y = 0, w = 1, h = 1}))
+hs.hotkey.bind(keys.prefix, keys.maximize, makeSetFrameCallback(hs.layout.maximized))
 
 -- Send to left, full height
 hs.hotkey.bind(keys.prefix, keys.left, makeSetFrameCallback2({
