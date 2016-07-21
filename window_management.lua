@@ -16,22 +16,22 @@ local keys = {
 local my_grid = hs.grid.setGrid('6x6', 'Color LCD').setMargins('0,0')
 
 local positions = {
-   left33 = hs.geometry.rect(0,0,2,6),
-   left50 = hs.geometry.rect(0,0,3,6),
-   left66 = hs.geometry.rect(0,0,4,6),
-   right33 = hs.geometry.rect(4,0,2,6),
-   right50 = hs.geometry.rect(3,0,3,6),
-   right66 = hs.geometry.rect(2,0,4,6),
-   top33 = hs.geometry.rect(0,0,6,2),
-   top50 = hs.geometry.rect(0,0,6,3),
-   top66 = hs.geometry.rect(0,0,6,4),
-   bottom33 = hs.geometry.rect(0,4,6,2),
-   bottom50 = hs.geometry.rect(0,3,6,3),
-   bottom66 = hs.geometry.rect(0,2,6,4),
-   tl = hs.geometry.rect(0,0,3,3),
-   tr = hs.geometry.rect(3,0,3,3),
-   bl = hs.geometry.rect(0,3,3,3),
-   br = hs.geometry.rect(3,3,3,3)
+   left = {hs.geometry.rect(0,0,2,6), hs.geometry.rect(0,0,3,6), hs.geometry.rect(0,0,4,6)},
+   right = {hs.geometry.rect(4,0,2,6), hs.geometry.rect(3,0,3,6), hs.geometry.rect(2,0,4,6)},
+   top = {hs.geometry.rect(0,0,6,2), hs.geometry.rect(0,0,6,3), hs.geometry.rect(0,0,6,4)},
+   bottom = {hs.geometry.rect(0,4,6,2), hs.geometry.rect(0,3,6,3), hs.geometry.rect(0,2,6,4)},
+   tl = {hs.geometry.rect(0,0,3,3), hs.geometry.rect(0,0,3,2), hs.geometry.rect(0,0,3,4),
+         hs.geometry.rect(0,0,2,2), hs.geometry.rect(0,0,2,3), hs.geometry.rect(0,0,2,4),
+         hs.geometry.rect(0,0,4,2), hs.geometry.rect(0,0,4,3), hs.geometry.rect(0,0,4,4)},
+   tr = {hs.geometry.rect(3,0,3,3), hs.geometry.rect(3,0,3,2), hs.geometry.rect(3,0,3,4),
+         hs.geometry.rect(4,0,2,2), hs.geometry.rect(4,0,2,3), hs.geometry.rect(4,0,2,4),
+         hs.geometry.rect(2,0,4,2), hs.geometry.rect(2,0,4,3), hs.geometry.rect(2,0,4,4)},
+   bl = {hs.geometry.rect(0,3,3,3), hs.geometry.rect(0,4,3,2), hs.geometry.rect(0,2,3,4),
+         hs.geometry.rect(0,4,2,2), hs.geometry.rect(0,3,2,3), hs.geometry.rect(0,2,2,4),
+         hs.geometry.rect(0,4,4,2), hs.geometry.rect(0,3,4,3), hs.geometry.rect(0,2,4,4)},
+   br = {hs.geometry.rect(3,3,3,3), hs.geometry.rect(3,4,3,2), hs.geometry.rect(3,2,3,4),
+         hs.geometry.rect(4,4,2,2), hs.geometry.rect(4,3,2,3), hs.geometry.rect(4,2,2,4),
+         hs.geometry.rect(2,4,4,2), hs.geometry.rect(2,3,4,3), hs.geometry.rect(2,2,4,4)},
 }
 
 local function areCellsEqual(c1, c2)
@@ -63,34 +63,6 @@ local function positionHelper(position_list)
    end
 end
 
---
---       local num_coeff = #coeff
---       local current_coeff_idx = 0
---       for idx, c in pairs(coeff) do
---          local ex = math.abs(f.x - (max.x + c.x * max.w)) < eps
---          local ey = math.abs(f.y - (max.y + c.y * max.h)) < eps
---          local ew = math.abs(f.w - (c.w * max.w)) < eps
---          local eh = math.abs(f.h - (c.h * max.h)) < eps
---          if ex and ey and ew and eh then
---             current_coeff_idx = idx
---          end
---       end
---
---       local new_coeff = {}
---       if current_coeff_idx > 0 and current_coeff_idx < num_coeff then
---          new_coeff = coeff[current_coeff_idx + 1]
---       else
---          new_coeff = coeff[1]
---       end
---
---       f.x = max.x + new_coeff.x * max.w
---       f.y = max.y + new_coeff.y * max.h
---       f.w = new_coeff.w * max.w
---       f.h = new_coeff.h * max.h
---
---       win:setFrame(f)
---    end
--- end
 
 -- Maximize
 local function maximizeHelper()
@@ -102,43 +74,26 @@ hs.hotkey.bind(keys.prefix, keys.maximize, maximizeHelper)
 hs.hotkey.bind(keys.prefix, "F", maximizeHelper)
 
 -- Send to left, full height
-hs.hotkey.bind(keys.prefix, keys.left, positionHelper({positions.left50,
-                                                       positions.left33,
-                                                       positions.left66}))
+hs.hotkey.bind(keys.prefix, keys.left, positionHelper(positions.left))
 
 -- Send to right, full height
-hs.hotkey.bind(keys.prefix, keys.right, positionHelper({positions.right50,
-                                                        positions.right33,
-                                                        positions.right66}))
+hs.hotkey.bind(keys.prefix, keys.right, positionHelper(positions.right))
 
 -- Send to top
-hs.hotkey.bind(keys.prefix, keys.top, positionHelper({positions.top50,
-                                                      positions.top33,
-                                                      positions.top66}))
-
+hs.hotkey.bind(keys.prefix, keys.top, positionHelper(positions.top))
 
 -- Send to bottom
-hs.hotkey.bind(keys.prefix, keys.bottom, positionHelper({positions.bottom50,
-                                                         positions.bottom33,
-                                                         positions.bottom66}))
+hs.hotkey.bind(keys.prefix, keys.bottom, positionHelper(positions.bottom))
 
 -- Send to upper left
-hs.hotkey.bind(keys.prefix, keys.top_left, function()
-    my_grid.set(hs.window.focusedWindow(), positions.tl)
-end)
+hs.hotkey.bind(keys.prefix, keys.top_left, positionHelper(positions.tl))
 
 -- Send to upper right
-hs.hotkey.bind(keys.prefix, keys.top_right, function()
-    my_grid.set(hs.window.focusedWindow(), positions.tr)
-end)
+hs.hotkey.bind(keys.prefix, keys.top_right, positionHelper(positions.tr))
 
 -- Send to lower left
-hs.hotkey.bind(keys.prefix, keys.bottom_left, function()
-    my_grid.set(hs.window.focusedWindow(), positions.bl)
-end)
+hs.hotkey.bind(keys.prefix, keys.bottom_left, positionHelper(positions.bl))
 
 -- Send to lower right
-hs.hotkey.bind(keys.prefix, keys.bottom_right, function()
-    my_grid.set(hs.window.focusedWindow(), positions.br)
-end)
+hs.hotkey.bind(keys.prefix, keys.bottom_right, positionHelper(positions.br))
 
