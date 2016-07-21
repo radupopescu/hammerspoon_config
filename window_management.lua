@@ -1,5 +1,6 @@
 local keys = {
-   prefix = {"cmd", "alt"},
+   move_prefix = {"cmd", "alt"},
+   switch_prefix = {"cmd", "ctrl"},
    maximize = "[",
    left = "P",
    right = "]",
@@ -69,31 +70,55 @@ local function maximizeHelper()
     my_grid.maximizeWindow(hs.window.focusedWindow())
 end
 
-hs.hotkey.bind(keys.prefix, keys.maximize, maximizeHelper)
+hs.hotkey.bind(keys.move_prefix, keys.maximize, maximizeHelper)
 -- Also maximize, since I'm used to this from Caffeine
-hs.hotkey.bind(keys.prefix, "F", maximizeHelper)
+hs.hotkey.bind(keys.move_prefix, "F", maximizeHelper)
 
 -- Send to left, full height
-hs.hotkey.bind(keys.prefix, keys.left, positionHelper(positions.left))
+hs.hotkey.bind(keys.move_prefix, keys.left, positionHelper(positions.left))
 
 -- Send to right, full height
-hs.hotkey.bind(keys.prefix, keys.right, positionHelper(positions.right))
+hs.hotkey.bind(keys.move_prefix, keys.right, positionHelper(positions.right))
 
 -- Send to top
-hs.hotkey.bind(keys.prefix, keys.top, positionHelper(positions.top))
+hs.hotkey.bind(keys.move_prefix, keys.top, positionHelper(positions.top))
 
 -- Send to bottom
-hs.hotkey.bind(keys.prefix, keys.bottom, positionHelper(positions.bottom))
+hs.hotkey.bind(keys.move_prefix, keys.bottom, positionHelper(positions.bottom))
 
 -- Send to upper left
-hs.hotkey.bind(keys.prefix, keys.top_left, positionHelper(positions.tl))
+hs.hotkey.bind(keys.move_prefix, keys.top_left, positionHelper(positions.tl))
 
 -- Send to upper right
-hs.hotkey.bind(keys.prefix, keys.top_right, positionHelper(positions.tr))
+hs.hotkey.bind(keys.move_prefix, keys.top_right, positionHelper(positions.tr))
 
 -- Send to lower left
-hs.hotkey.bind(keys.prefix, keys.bottom_left, positionHelper(positions.bl))
+hs.hotkey.bind(keys.move_prefix, keys.bottom_left, positionHelper(positions.bl))
 
 -- Send to lower right
-hs.hotkey.bind(keys.prefix, keys.bottom_right, positionHelper(positions.br))
+hs.hotkey.bind(keys.move_prefix, keys.bottom_right, positionHelper(positions.br))
 
+
+-- Switcher
+local my_switcher_ui = { textColor = {0.9,0.9,0.9},
+                         fontName = 'San Francisco',
+                         textSize = 12, -- in screen points
+                         highlightColor = {0.8,0.5,0,0.8}, -- highlight color for the selected window
+                         backgroundColor = {0.0,0.0,0.0,1},
+                         onlyActiveApplication = false, -- only show windows of the active application
+                         showTitles = false, -- show window titles
+                         titleBackgroundColor = {0,0,0},
+                         showThumbnails = true, -- show window thumbnails
+                         thumbnailSize = 128, -- size of window thumbnails in screen points
+                         showSelectedThumbnail = true, -- show a larger thumbnail for the currently selected window
+                         selectedThumbnailSize = 450,
+                         showSelectedTitle = true } -- show larger title for the currently selected window
+local my_switcher = hs.window.switcher.new(nil, my_switcher_ui)
+
+hs.hotkey.bind(keys.switch_prefix, 'J', function()
+                  my_switcher:next()
+end)
+
+hs.hotkey.bind(keys.switch_prefix, 'K', function()
+                  my_switcher:previous()
+end)
