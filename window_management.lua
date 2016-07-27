@@ -1,5 +1,5 @@
 local keys = { move_prefix = {"cmd", "alt"},
-               switch_prefix = {"cmd", "ctrl"},
+               focus_prefix = {"ctrl", "alt"},
                maximize = "[",
                left = "P",
                right = "]",
@@ -10,7 +10,11 @@ local keys = { move_prefix = {"cmd", "alt"},
                bottom_left = ";",
                bottom_right = "\\",
                switcher_next = "J",
-               switcher_prev = "K" }
+               switcher_prev = "K" ,
+               focus_west = "H",
+               focus_south = "J",
+               focus_north = "K",
+               focus_east = "L" }
 
 local my_switcher_ui = { textColor = {0.9,0.9,0.9},
                          fontName = 'San Francisco',
@@ -112,13 +116,16 @@ hs.hotkey.bind(keys.move_prefix, keys.bottom_left, positionHelper(positions.bl))
 hs.hotkey.bind(keys.move_prefix, keys.bottom_right, positionHelper(positions.br))
 
 
--- Switcher
-local my_switcher = hs.window.switcher.new(nil, my_switcher_ui)
-
-hs.hotkey.bind(keys.switch_prefix, keys.switcher_next, function()
-                  my_switcher:next()
+-- Focus
+hs.hotkey.bind(keys.focus_prefix, keys.focus_west, function()
+    hs.window.filter.focusWest()
 end)
-
-hs.hotkey.bind(keys.switch_prefix, keys.switcher_prev, function()
-                  my_switcher:previous()
+hs.hotkey.bind(keys.focus_prefix, keys.focus_east, function()
+    hs.window.filter.focusEast()
+end)
+hs.hotkey.bind(keys.focus_prefix, keys.focus_south, function()
+    hs.window.filter.focusSouth()
+end)
+hs.hotkey.bind(keys.focus_prefix, keys.focus_north, function()
+    hs.window.filter.focusNorth()
 end)
