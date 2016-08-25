@@ -9,26 +9,10 @@ local keys = { move_prefix = {"cmd", "alt"},
                top_right = "=",
                bottom_left = ";",
                bottom_right = "\\",
-               switcher_next = "J",
-               switcher_prev = "K" ,
                focus_west = "H",
                focus_south = "J",
                focus_north = "K",
                focus_east = "L" }
-
-local my_switcher_ui = { textColor = {0.9,0.9,0.9},
-                         fontName = 'San Francisco',
-                         textSize = 12, -- in screen points
-                         highlightColor = {0.8,0.5,0,0.8}, -- highlight color for the selected window
-                         backgroundColor = {0.0,0.0,0.0,1},
-                         onlyActiveApplication = false, -- only show windows of the active application
-                         showTitles = false, -- show window titles
-                         titleBackgroundColor = {0,0,0},
-                         showThumbnails = true, -- show window thumbnails
-                         thumbnailSize = 128, -- size of window thumbnails in screen points
-                         showSelectedThumbnail = true, -- show a larger thumbnail for the currently selected window
-                         selectedThumbnailSize = 450,
-                         showSelectedTitle = true } -- show larger title for the currently selected window
 
 
 -- No need to edit below this line
