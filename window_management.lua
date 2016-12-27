@@ -17,7 +17,7 @@ local keys = { move_prefix = {"cmd", "alt"},
 
 -- No need to edit below this line
 
-local my_grid = hs.grid.setGrid('6x6', 'Color LCD').setMargins('0,0')
+local my_grid = hs.grid.setGrid('6x6').setMargins('0,0')
 
 local positions = { left = { hs.geometry.rect(0,0,3,6), hs.geometry.rect(0,0,2,6), hs.geometry.rect(0,0,4,6) },
                     right = { hs.geometry.rect(3,0,3,6), hs.geometry.rect(4,0,2,6), hs.geometry.rect(2,0,4,6) },
