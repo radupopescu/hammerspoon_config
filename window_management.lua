@@ -19,8 +19,8 @@ local keys = { move_prefix = {"cmd", "alt"},
 
 local my_grid = hs.grid.setGrid('12x6').setMargins('0,0')
 
-local positions = { left = { hs.geometry.rect(0,0,6,6), hs.geometry.rect(0,0,3,6), hs.geometry.rect(0,0,4,6), hs.geometry.rect(0,0,8,6) },
-                    right = { hs.geometry.rect(6,0,6,6), hs.geometry.rect(9,0,3,6), hs.geometry.rect(8,0,4,6), hs.geometry.rect(4,0,8,6) },
+local positions = { left = { hs.geometry.rect(0,0,6,6), hs.geometry.rect(0,0,3,6), hs.geometry.rect(0,0,4,6), hs.geometry.rect(0,0,8,6), hs.geometry.rect(0,0,9,6) },
+                    right = { hs.geometry.rect(6,0,6,6), hs.geometry.rect(9,0,3,6), hs.geometry.rect(8,0,4,6), hs.geometry.rect(4,0,8,6), hs.geometry.rect(3,0,9,6) },
                     top = { hs.geometry.rect(0,0,12,3), hs.geometry.rect(0,0,12,2), hs.geometry.rect(0,0,12,4) },
                     bottom = { hs.geometry.rect(0,3,12,3), hs.geometry.rect(0,4,12,2), hs.geometry.rect(0,2,12,4) },
                     tl = { hs.geometry.rect(0,0,6,3), hs.geometry.rect(0,0,6,2), hs.geometry.rect(0,0,6,4),
