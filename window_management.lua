@@ -1,40 +1,46 @@
-local keys = { move_prefix = {"cmd", "alt"},
-               focus_prefix = {"ctrl", "alt"},
-               maximize = "[",
-               left = "P",
-               right = "]",
-               top = "-",
-               bottom = "'",
-               top_left = "0",
-               top_right = "=",
-               bottom_left = ";",
-               bottom_right = "\\",
-               focus_west = "H",
-               focus_south = "J",
-               focus_north = "K",
-               focus_east = "L" }
+local keys = {
+    move_prefix = {"cmd", "alt"},
+    focus_prefix = {"ctrl", "alt"},
+    maximize = "[",
+    left = "P",
+    right = "]",
+    top = "-",
+    bottom = "'",
+    top_left = "0",
+    top_right = "=",
+    bottom_left = ";",
+    bottom_right = "\\",
+    center_column = "C",
+    focus_west = "H",
+    focus_south = "J",
+    focus_north = "K",
+    focus_east = "L"
+}
 
 
 -- No need to edit below this line
 
 local my_grid = hs.grid.setGrid('12x6').setMargins('0,0')
 
-local positions = { left = { hs.geometry.rect(0,0,6,6), hs.geometry.rect(0,0,3,6), hs.geometry.rect(0,0,4,6), hs.geometry.rect(0,0,8,6), hs.geometry.rect(0,0,9,6) },
-                    right = { hs.geometry.rect(6,0,6,6), hs.geometry.rect(3,0,9,6), hs.geometry.rect(4,0,8,6), hs.geometry.rect(8,0,4,6), hs.geometry.rect(9,0,3,6) },
-                    top = { hs.geometry.rect(0,0,12,3), hs.geometry.rect(0,0,12,2), hs.geometry.rect(0,0,12,4) },
-                    bottom = { hs.geometry.rect(0,3,12,3), hs.geometry.rect(0,4,12,2), hs.geometry.rect(0,2,12,4) },
-                    tl = { hs.geometry.rect(0,0,6,3), hs.geometry.rect(0,0,6,2), hs.geometry.rect(0,0,6,4),
-                           hs.geometry.rect(0,0,4,2), hs.geometry.rect(0,0,4,3), hs.geometry.rect(0,0,4,4),
-                           hs.geometry.rect(0,0,8,2), hs.geometry.rect(0,0,8,3), hs.geometry.rect(0,0,8,4) },
-                    tr = { hs.geometry.rect(6,0,6,3), hs.geometry.rect(6,0,6,2), hs.geometry.rect(6,0,6,4),
-                           hs.geometry.rect(8,0,4,2), hs.geometry.rect(8,0,4,3), hs.geometry.rect(8,0,4,4),
-                           hs.geometry.rect(4,0,8,2), hs.geometry.rect(4,0,8,3), hs.geometry.rect(4,0,8,4) },
-                    bl = { hs.geometry.rect(0,3,6,3), hs.geometry.rect(0,4,6,2), hs.geometry.rect(0,2,6,4),
-                           hs.geometry.rect(0,4,4,2), hs.geometry.rect(0,3,4,3), hs.geometry.rect(0,2,4,4),
-                           hs.geometry.rect(0,4,8,2), hs.geometry.rect(0,3,8,3), hs.geometry.rect(0,2,8,4) },
-                    br = { hs.geometry.rect(6,3,6,3), hs.geometry.rect(6,4,6,2), hs.geometry.rect(6,2,6,4),
-                           hs.geometry.rect(8,4,4,2), hs.geometry.rect(8,3,4,3), hs.geometry.rect(8,2,4,4),
-                           hs.geometry.rect(4,4,8,2), hs.geometry.rect(4,3,8,3), hs.geometry.rect(4,2,8,4) } }
+local positions = {
+    left = { hs.geometry.rect(0,0,6,6), hs.geometry.rect(0,0,2,6), hs.geometry.rect(0,0,3,6), hs.geometry.rect(0,0,4,6), hs.geometry.rect(0,0,8,6), hs.geometry.rect(0,0,9,6) },
+    right = { hs.geometry.rect(6,0,6,6), hs.geometry.rect(3,0,9,6), hs.geometry.rect(4,0,8,6), hs.geometry.rect(8,0,4,6), hs.geometry.rect(9,0,3,6), hs.geometry.rect(10,0,2,6) },
+    top = { hs.geometry.rect(0,0,12,3), hs.geometry.rect(0,0,12,2), hs.geometry.rect(0,0,12,4) },
+    bottom = { hs.geometry.rect(0,3,12,3), hs.geometry.rect(0,4,12,2), hs.geometry.rect(0,2,12,4) },
+    tl = { hs.geometry.rect(0,0,6,3), hs.geometry.rect(0,0,6,2), hs.geometry.rect(0,0,6,4),
+           hs.geometry.rect(0,0,4,2), hs.geometry.rect(0,0,4,3), hs.geometry.rect(0,0,4,4),
+           hs.geometry.rect(0,0,8,2), hs.geometry.rect(0,0,8,3), hs.geometry.rect(0,0,8,4) },
+    tr = { hs.geometry.rect(6,0,6,3), hs.geometry.rect(6,0,6,2), hs.geometry.rect(6,0,6,4),
+           hs.geometry.rect(8,0,4,2), hs.geometry.rect(8,0,4,3), hs.geometry.rect(8,0,4,4),
+           hs.geometry.rect(4,0,8,2), hs.geometry.rect(4,0,8,3), hs.geometry.rect(4,0,8,4) },
+    bl = { hs.geometry.rect(0,3,6,3), hs.geometry.rect(0,4,6,2), hs.geometry.rect(0,2,6,4),
+           hs.geometry.rect(0,4,4,2), hs.geometry.rect(0,3,4,3), hs.geometry.rect(0,2,4,4),
+           hs.geometry.rect(0,4,8,2), hs.geometry.rect(0,3,8,3), hs.geometry.rect(0,2,8,4) },
+    br = { hs.geometry.rect(6,3,6,3), hs.geometry.rect(6,4,6,2), hs.geometry.rect(6,2,6,4),
+           hs.geometry.rect(8,4,4,2), hs.geometry.rect(8,3,4,3), hs.geometry.rect(8,2,4,4),
+           hs.geometry.rect(4,4,8,2), hs.geometry.rect(4,3,8,3), hs.geometry.rect(4,2,8,4) },
+    center_column = { hs.geometry.rect(2,0,8,6) }
+}
 
 local function areCellsEqual(c1, c2)
    return c1.x == c2.x and c1.y == c2.y and c1.w == c2.w and c1.h == c2.h
@@ -98,6 +104,9 @@ hs.hotkey.bind(keys.move_prefix, keys.bottom_left, positionHelper(positions.bl))
 
 -- Send to lower right
 hs.hotkey.bind(keys.move_prefix, keys.bottom_right, positionHelper(positions.br))
+
+-- Center column, 2/3 of screen width
+hs.hotkey.bind(keys.move_prefix, keys.center_column, positionHelper(positions.center_column))
 
 
 -- Focus
