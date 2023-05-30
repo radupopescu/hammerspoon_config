@@ -76,10 +76,7 @@ end
 local function maximizeHelper()
     my_grid.maximizeWindow(hs.window.focusedWindow())
 end
-
 hs.hotkey.bind(keys.move_prefix, keys.maximize, maximizeHelper)
--- Also maximize, since I'm used to this from Caffeine
-hs.hotkey.bind(keys.move_prefix, "s", maximizeHelper)
 
 -- Send to left, full height
 hs.hotkey.bind(keys.move_prefix, keys.left, positionHelper(positions.left))
